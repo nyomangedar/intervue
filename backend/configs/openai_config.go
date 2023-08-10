@@ -8,11 +8,11 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func ChatGPTClient() *azopenai.Client{
+func ChatGPTClient() *azopenai.Client {
 	err := godotenv.Load()
-	OPEN_AI_KEY := os.Getenv("API_KEY")
-	URL_ENDPOINT := os.Getenv("ENDPOINT")
-	DEPLOYMENT_ID := os.Getenv("DEPLOYMENT_ID")
+	OPEN_AI_KEY := os.Getenv("OPENAI_API_KEY")
+	URL_ENDPOINT := os.Getenv("OPENAI_ENDPOINT")
+	DEPLOYMENT_ID := os.Getenv("OPENAI_DEPLOYMENT_ID")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}

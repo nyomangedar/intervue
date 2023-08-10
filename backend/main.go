@@ -11,6 +11,8 @@ func main() {
 	app := fiber.New()
 
 	router.ChatGPTRoutes(app)
+	router.VisionRouter(app)
+
 	app.Listen(":8000")
 	fmt.Print("Server is Running")
 }
