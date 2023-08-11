@@ -50,7 +50,7 @@ func SendChat(c *fiber.Ctx) error {
 		// This is a conversation in progress.
 		// NOTE: all messages count against token usage for this API.
 		Messages:     messages,
-		DeploymentID: os.Getenv("DEPLOYMENT_ID"),
+		DeploymentID: os.Getenv("OPENAI_DEPLOYMENT_ID"),
 	}, nil)
 
 	if err != nil {

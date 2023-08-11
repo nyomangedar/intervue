@@ -5,6 +5,7 @@ go 1.20
 require (
 	cloud.google.com/go/compute v1.23.0 // indirect
 	cloud.google.com/go/compute/metadata v0.2.3 // indirect
+	cloud.google.com/go/vision v1.2.0 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/ai/azopenai v0.1.1 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.6.1 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/internal v1.3.0 // indirect
