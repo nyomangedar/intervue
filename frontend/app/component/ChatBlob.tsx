@@ -11,7 +11,6 @@ type ChatBlobAttr = {
     register: UseFormRegister<UserAnswer>;
     handleSubmit: UseFormHandleSubmit<UserAnswer>;
     createNewChatBlob: (data: string) => void;
-
     prevContext: string;
 };
 
@@ -28,7 +27,7 @@ const ChatBlob: React.FC<ChatBlobAttr> = ({
             onSubmit={handleSubmit(async (data: UserAnswer) => {
                 console.log(data);
                 createNewChatBlob(data.message);
-                await apiPost(data);
+                apiPost(data);
             })}
             style={{ width: 400 }}
         >
