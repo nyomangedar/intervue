@@ -21,7 +21,7 @@ type ChatRequestBody struct {
 }
 
 func SendChat(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 
 	var req ChatRequestBody
 	defer cancel()
@@ -33,7 +33,7 @@ func SendChat(c *fiber.Ctx) error {
 
 	messages := []azopenai.ChatMessage{
 		// You set the tone and rules of the conversation with a prompt as the system role.
-		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for tech jobs")},
+		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for tech jobs (please answer this with proper html format without doctype, )")},
 		// The user send answer
 		{Role: to.Ptr(azopenai.ChatRoleUser), Content: to.Ptr(req.Message)},
 	}
@@ -60,7 +60,7 @@ func SendChat(c *fiber.Ctx) error {
 }
 
 func AnalyzeJobPosting(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	var req ChatRequestBody
 	defer cancel()
 
@@ -101,7 +101,7 @@ func AnalyzeJobPosting(c *fiber.Ctx) error {
 }
 
 func CaseStudyEstimation(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	var req ChatRequestBody
 	defer cancel()
 
@@ -133,7 +133,7 @@ func CaseStudyEstimation(c *fiber.Ctx) error {
 }
 
 func CaseScoringEstimation(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	var req ChatRequestBody
 	defer cancel()
 
@@ -167,7 +167,7 @@ func CaseScoringEstimation(c *fiber.Ctx) error {
 }
 
 func CaseStudyCompanyRelated(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	var req ChatRequestBody
 	defer cancel()
 
@@ -200,7 +200,7 @@ func CaseStudyCompanyRelated(c *fiber.Ctx) error {
 }
 
 func CaseScoringCompanyRelated(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	var req ChatRequestBody
 	defer cancel()
 
@@ -234,7 +234,7 @@ func CaseScoringCompanyRelated(c *fiber.Ctx) error {
 }
 
 func RubricCompanyRelatedCase(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	var req ChatRequestBody
 	defer cancel()
 
@@ -268,7 +268,7 @@ func RubricCompanyRelatedCase(c *fiber.Ctx) error {
 }
 
 func Feedback(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	var req ChatRequestBody
 	defer cancel()
 
