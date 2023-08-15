@@ -5,12 +5,13 @@ import {
     UseFormSetValue,
 } from "react-hook-form";
 import { UserAnswer } from "./UserAnswer";
+import ChatBlobUser from "./ChatBlobUser";
 
 type ChatBlobAttr = {
     apiPost: (data: UserAnswer) => Promise<void>;
     register: UseFormRegister<UserAnswer>;
     handleSubmit: UseFormHandleSubmit<UserAnswer>;
-    createNewChatBlob: (data: string) => void;
+    createNewChatBlob: (data: any) => void;
     prevContext: string;
 };
 
@@ -23,18 +24,18 @@ const ChatBlob: React.FC<ChatBlobAttr> = ({
 }) => {
     return (
         <form
-            className="flex gap-2 items-end"
+            className="flex gap-2"
             onSubmit={handleSubmit(async (data: UserAnswer) => {
                 console.log(data);
-                createNewChatBlob(data.message);
+                createNewChatBlob(ChatBlobUser(data.message));
                 apiPost(data);
             })}
-            style={{ width: 400 }}
+            style={{ padding: "24px 8px 24px 8px" }}
         >
             <TextArea
                 {...register("message")}
                 size="1"
-                style={{ maxWidth: 400, height: 200 }}
+                style={{ width: 200 }}
             />{" "}
             <Button type="submit" style={{ height: 48 }}>
                 <svg

@@ -1,5 +1,6 @@
 import { ChatAPIResponse } from "./component/ChatAPIResonpse";
 import ChatBlob from "./component/ChatBlob";
+import ChatBlobAI from "./component/ChatBlobAI";
 import { ChatInitiator } from "./component/ChatInitiator";
 import { UserAnswer } from "./component/UserAnswer";
 import { UserFlow } from "./component/UserFlow";
@@ -16,7 +17,7 @@ const CaseStudyEst: React.FC<ChatInitiator> = ({
     const template = (data: any) => {
         return (
             <>
-                <h4>Great!, Here is an estimation case study: </h4>
+                <p>Great! Here is an estimation case study: </p>
                 {data}
             </>
         );
@@ -33,14 +34,14 @@ const CaseStudyEst: React.FC<ChatInitiator> = ({
             }
         );
         const resData: ChatAPIResponse = await response.json();
-        createNewChatBlob(template(resData.data.data.content));
+        createNewChatBlob(ChatBlobAI(template(resData.data.data.content)));
         setUserSessionAttr("questionEst", resData.data.data.content);
         setCurrentFlow(UserFlow.caseStudyEst, UserFlow.caseStudyEstScoring);
     };
     return (
-        <>
+        <div style={{ padding: "8px 8px 8px 8px" }}>
             <h4>Do you wish to continue for the example question?</h4>
-            <div className="flex content-around">
+            <div>
                 <Button
                     onClick={() => {
                         chatResponse({
@@ -55,7 +56,7 @@ const CaseStudyEst: React.FC<ChatInitiator> = ({
                     <h2>No</h2>
                 </Button>
             </div>
-        </>
+        </div>
     );
 };
 

@@ -1,5 +1,6 @@
 import { ChatAPIResponse } from "./component/ChatAPIResonpse";
 import ChatBlob from "./component/ChatBlob";
+import ChatBlobAI from "./component/ChatBlobAI";
 import { ChatInitiator } from "./component/ChatInitiator";
 import { UserAnswer } from "./component/UserAnswer";
 import { UserFlow } from "./component/UserFlow";
@@ -25,9 +26,10 @@ const Feedback: React.FC<ChatInitiator> = ({
             }
         );
         const resData: ChatAPIResponse = await response.json();
-        createNewChatBlob(userSessionAttr.userEstScore);
-        createNewChatBlob(userSessionAttr.userCompScore);
-        createNewChatBlob(resData.data.data.content);
+
+        createNewChatBlob(ChatBlobAI(userSessionAttr.userEstScore));
+        createNewChatBlob(ChatBlobAI(userSessionAttr.userCompScore));
+        createNewChatBlob(ChatBlobAI(resData.data.data.content));
         setCurrentFlow(UserFlow.feedback, UserFlow.analyseJobPosting);
     };
     return (

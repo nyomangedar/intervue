@@ -1,5 +1,6 @@
 import { ChatAPIResponse } from "./component/ChatAPIResonpse";
 import ChatBlob from "./component/ChatBlob";
+import ChatBlobAI from "./component/ChatBlobAI";
 import { ChatInitiator } from "./component/ChatInitiator";
 import { UserAnswer } from "./component/UserAnswer";
 import { UserFlow } from "./component/UserFlow";
@@ -16,7 +17,7 @@ const CaseStudyComp: React.FC<ChatInitiator> = ({
     const template = (data: any) => {
         return (
             <>
-                <h4>Great!, Here is a company based case study: </h4>
+                <p>Great!, Here is a company based case study: </p>
                 {data}
             </>
         );
@@ -48,16 +49,16 @@ const CaseStudyComp: React.FC<ChatInitiator> = ({
         const rubricData: ChatAPIResponse = await rubric.json();
         setUserSessionAttr(questionData.data.data.content, "questionComp");
         setUserSessionAttr(rubricData.data.data.content, "rubricComp");
-        createNewChatBlob(template(questionData.data.data.content));
+        createNewChatBlob(ChatBlobAI(template(questionData.data.data.content)));
         setCurrentFlow(UserFlow.caseStudyComp, UserFlow.caseStudyCompScoring);
     };
     return (
         <>
-            <h4>
+            <p>
                 We have another question for company related use case study! Do
                 you wish to continue?
-            </h4>
-            <div className="flex content-around">
+            </p>
+            <div>
                 <Button
                     onClick={() => {
                         chatResponse({

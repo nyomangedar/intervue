@@ -3,6 +3,7 @@ import "./globals.css";
 import { Theme } from "@radix-ui/themes";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import SideNavBar from "./SideNavbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,8 +20,11 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={inter.className}>
-                <Theme appearance="dark" accentColor="gray" grayColor="olive">
-                    {children}
+                <Theme appearance="light" accentColor="gray" grayColor="olive">
+                    <div className="flex">
+                        <SideNavBar />
+                        {children}
+                    </div>
                 </Theme>
             </body>
         </html>

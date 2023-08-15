@@ -1,9 +1,14 @@
-import { UseFormRegister, UseFormHandleSubmit } from "react-hook-form";
+import {
+    UseFormRegister,
+    UseFormHandleSubmit,
+    UseFormSetValue,
+} from "react-hook-form";
 import { UserAnswer } from "./UserAnswer";
 
 export type ChatInitiator = {
     register: UseFormRegister<UserAnswer>;
     handleSubmit: UseFormHandleSubmit<UserAnswer>;
+    setValue: UseFormSetValue<UserAnswer>;
     createNewChatBlob: (data: any) => void;
     setUserSessionAttr: (data: string, usecase: string) => void;
     userSessionAttr: {

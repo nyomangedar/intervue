@@ -3,6 +3,8 @@ import ChatBlob from "./component/ChatBlob";
 import { ChatInitiator } from "./component/ChatInitiator";
 import { UserAnswer } from "./component/UserAnswer";
 import { UserFlow } from "./component/UserFlow";
+import { useEffect } from "react";
+import ChatBlobAI from "./component/ChatBlobAI";
 
 const CaseStudyEstScoring: React.FC<ChatInitiator> = ({
     register,
@@ -10,8 +12,14 @@ const CaseStudyEstScoring: React.FC<ChatInitiator> = ({
     createNewChatBlob,
     setUserSessionAttr,
     setCurrentFlow,
+    setValue,
     userSessionAttr,
 }) => {
+    useEffect(() => {
+        createNewChatBlob(
+            ChatBlobAI(<p>Please provide answer for the question above</p>)
+        );
+    }, []);
     const chatResponse = async (data: UserAnswer) => {
         setUserSessionAttr(data.message, "userAnswerEstimation");
         const response = await fetch(
@@ -25,13 +33,16 @@ const CaseStudyEstScoring: React.FC<ChatInitiator> = ({
             }
         );
         const resData: ChatAPIResponse = await response.json();
-        setUserSessionAttr(resData.data.data.content, "userEstScore");
-        createNewChatBlob(resData.data.data.content);
+        setValue("message", "");
+        setUserSessionAttr(
+            "Here is our feedback regarding your answer for company based study case" +
+                resData.data.data.content,
+            "userEstScore"
+        );
         setCurrentFlow(UserFlow.caseStudyEstScoring, UserFlow.caseStudyComp);
     };
     return (
         <>
-            <h2>Please provide answer for the question above</h2>
             <ChatBlob
                 apiPost={chatResponse}
                 register={register}
