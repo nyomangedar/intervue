@@ -6,7 +6,7 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-RUN npm config set proxy http://ec2-18-170-117-198.eu-west-2.compute.amazonaws.com
+RUN npm config set proxy http://20.121.136.232/
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
