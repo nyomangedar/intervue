@@ -14,7 +14,7 @@ func main() {
 	app.Use(cors.New())
 
 	router.ChatGPTRoutes(app)
-	router.VisionRouter(app)
+	// router.VisionRouter(app)
 
 	app.Listen(":8000")
 	fmt.Print("Server is Running")

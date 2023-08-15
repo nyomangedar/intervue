@@ -1,11 +1,11 @@
 package router
 
-import (
-	"backend/controller"
+// import (
+// 	"backend/controller"
 
-	"github.com/gofiber/fiber/v2"
-)
+// 	"github.com/gofiber/fiber/v2"
+// )
 
-func VisionRouter(app *fiber.App) {
-	app.Post("/vision", controller.VisionReadText)
-}
+// func VisionRouter(app *fiber.App) {
+// 	app.Post("/vision", controller.VisionReadText)
+// }
