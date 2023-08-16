@@ -5,27 +5,20 @@ import { ChatInitiator } from "./component/ChatInitiator";
 import { UserAnswer } from "./component/UserAnswer";
 import { UserFlow } from "./component/UserFlow";
 import { Button } from "@radix-ui/themes";
+import { ChatFetcher, ChatAPIList } from "./component/ChatFetch";
 
 const Feedback: React.FC<ChatInitiator> = ({
-    register,
-    handleSubmit,
     createNewChatBlob,
-    setUserSessionAttr,
     setCurrentFlow,
     userSessionAttr,
+    loadingHandle,
 }) => {
     const chatResponse = async (data: UserAnswer) => {
-        const response = await fetch(
-            "http://127.0.0.1:8000/chat-api/feedback",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            }
+        const resData: ChatAPIResponse = await ChatFetcher(
+            ChatAPIList.caseStudyEst,
+            data,
+            loadingHandle
         );
-        const resData: ChatAPIResponse = await response.json();
 
         createNewChatBlob(ChatBlobAI(userSessionAttr.userEstScore));
         createNewChatBlob(ChatBlobAI(userSessionAttr.userCompScore));

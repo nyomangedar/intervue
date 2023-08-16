@@ -6,6 +6,7 @@ import { UserAnswer } from "./component/UserAnswer";
 import { Button } from "@radix-ui/themes";
 import { UserFlow } from "./component/UserFlow";
 import ChatBlobAI from "./component/ChatBlobAI";
+import { ChatFetcher, ChatAPIList } from "./component/ChatFetch";
 
 const AnalyseJobPosting: React.FC<ChatInitiator> = ({
     register,
@@ -14,6 +15,7 @@ const AnalyseJobPosting: React.FC<ChatInitiator> = ({
     setUserSessionAttr,
     setCurrentFlow,
     setValue,
+    loadingHandle,
 }) => {
     const newChat = (
         <p>Hi there! Please enter your job description you want to apply</p>
@@ -24,17 +26,11 @@ const AnalyseJobPosting: React.FC<ChatInitiator> = ({
     }, []);
     const chatResponse = async (data: UserAnswer) => {
         setUserSessionAttr(data.message, "jobPosting");
-        const response = await fetch(
-            "http://127.0.0.1:8000/chat-api/analyze-job-posting",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            }
+        const resData: ChatAPIResponse = await ChatFetcher(
+            ChatAPIList.analyseJob,
+            data,
+            loadingHandle
         );
-        const resData: ChatAPIResponse = await response.json();
         createNewChatBlob(ChatBlobAI(resChat));
         createNewChatBlob(ChatBlobAI(resData.data.data.content));
         setValue("message", "");

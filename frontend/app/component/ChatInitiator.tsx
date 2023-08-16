@@ -22,4 +22,5 @@ export type ChatInitiator = {
         companyRubric: string;
     };
     setCurrentFlow: (prevCase: string, nextCase: string) => void;
+    loadingHandle: (state: boolean) => void;
 };

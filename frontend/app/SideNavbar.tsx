@@ -7,7 +7,7 @@ const SideNavBar: React.FC = () => {
             className="flex flex-col items-center"
             style={{
                 padding: 16,
-                height: "100vw",
+                // height: "100vw",
                 boxShadow: "0px 0px 24px 0px rgba(0, 0, 0, 0.08)",
             }}
         >

@@ -14,6 +14,7 @@ import Feedback from "./Feedback";
 
 export default function ChatPanel() {
     const [chatBlobs, setChatBlobs] = useState<JSX.Element[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
     const [userSession, setUserSession] = useState({
         jobPosting: "",
         userAnswerEstimation: "",
@@ -33,12 +34,22 @@ export default function ChatPanel() {
         feedback: false,
     });
 
-    const setCurrentFlow = (prevCase: string, nextCase: string) => {
-        setUserFlow((prevState) => ({
-            ...prevState,
-            [prevCase]: false,
-            [nextCase]: true,
-        }));
+    const setCurrentFlow = (
+        prevCase: string,
+        nextCase: string | null = null
+    ) => {
+        if (nextCase) {
+            setUserFlow((prevState) => ({
+                ...prevState,
+                [prevCase]: false,
+                [nextCase]: true,
+            }));
+        } else {
+            setUserFlow((prevState) => ({
+                ...prevState,
+                [prevCase]: false,
+            }));
+        }
     };
 
     const {
@@ -59,6 +70,87 @@ export default function ChatPanel() {
         const newChatBlob = <div>{data}</div>;
         setChatBlobs((prevState) => [...prevState, newChatBlob]);
     };
+
+    const setLoading = (state: boolean) => {
+        setIsLoading(state);
+    };
+
+    const chatInputMessage = (
+        <>
+            {userFlow.analyseJobPosting && (
+                <AnalyseJobPosting
+                    register={register}
+                    setValue={setValue}
+                    handleSubmit={handleSubmit}
+                    createNewChatBlob={createNewChatBlob}
+                    setUserSessionAttr={setUserSessionAttr}
+                    setCurrentFlow={setCurrentFlow}
+                    userSessionAttr={userSession}
+                    loadingHandle={setLoading}
+                />
+            )}
+            {userFlow.caseStudyEst && (
+                <CaseStudyEst
+                    register={register}
+                    setValue={setValue}
+                    handleSubmit={handleSubmit}
+                    createNewChatBlob={createNewChatBlob}
+                    setUserSessionAttr={setUserSessionAttr}
+                    setCurrentFlow={setCurrentFlow}
+                    userSessionAttr={userSession}
+                    loadingHandle={setLoading}
+                />
+            )}
+            {userFlow.caseStudyEstScoring && (
+                <CaseStudyEstScoring
+                    register={register}
+                    setValue={setValue}
+                    handleSubmit={handleSubmit}
+                    createNewChatBlob={createNewChatBlob}
+                    setUserSessionAttr={setUserSessionAttr}
+                    setCurrentFlow={setCurrentFlow}
+                    userSessionAttr={userSession}
+                    loadingHandle={setLoading}
+                />
+            )}
+            {userFlow.caseStudyComp && (
+                <CaseStudyComp
+                    register={register}
+                    setValue={setValue}
+                    handleSubmit={handleSubmit}
+                    createNewChatBlob={createNewChatBlob}
+                    setUserSessionAttr={setUserSessionAttr}
+                    setCurrentFlow={setCurrentFlow}
+                    userSessionAttr={userSession}
+                    loadingHandle={setLoading}
+                />
+            )}
+            {userFlow.caseStudyCompScoring && (
+                <CaseStudyCompScoring
+                    register={register}
+                    setValue={setValue}
+                    handleSubmit={handleSubmit}
+                    createNewChatBlob={createNewChatBlob}
+                    setUserSessionAttr={setUserSessionAttr}
+                    setCurrentFlow={setCurrentFlow}
+                    userSessionAttr={userSession}
+                    loadingHandle={setLoading}
+                />
+            )}
+            {userFlow.feedback && (
+                <Feedback
+                    register={register}
+                    setValue={setValue}
+                    handleSubmit={handleSubmit}
+                    createNewChatBlob={createNewChatBlob}
+                    setUserSessionAttr={setUserSessionAttr}
+                    setCurrentFlow={setCurrentFlow}
+                    userSessionAttr={userSession}
+                    loadingHandle={setLoading}
+                />
+            )}
+        </>
+    );
     return (
         <div className="flex flex-col border-r" style={{ width: 640 }}>
             {/* Chat Header */}
@@ -76,71 +168,17 @@ export default function ChatPanel() {
                 {chatBlobs}
             </div>
 
-            {userFlow.analyseJobPosting && (
-                <AnalyseJobPosting
-                    register={register}
-                    setValue={setValue}
-                    handleSubmit={handleSubmit}
-                    createNewChatBlob={createNewChatBlob}
-                    setUserSessionAttr={setUserSessionAttr}
-                    setCurrentFlow={setCurrentFlow}
-                    userSessionAttr={userSession}
-                />
-            )}
-            {userFlow.caseStudyEst && (
-                <CaseStudyEst
-                    register={register}
-                    setValue={setValue}
-                    handleSubmit={handleSubmit}
-                    createNewChatBlob={createNewChatBlob}
-                    setUserSessionAttr={setUserSessionAttr}
-                    setCurrentFlow={setCurrentFlow}
-                    userSessionAttr={userSession}
-                />
-            )}
-            {userFlow.caseStudyEstScoring && (
-                <CaseStudyEstScoring
-                    register={register}
-                    setValue={setValue}
-                    handleSubmit={handleSubmit}
-                    createNewChatBlob={createNewChatBlob}
-                    setUserSessionAttr={setUserSessionAttr}
-                    setCurrentFlow={setCurrentFlow}
-                    userSessionAttr={userSession}
-                />
-            )}
-            {userFlow.caseStudyComp && (
-                <CaseStudyComp
-                    register={register}
-                    setValue={setValue}
-                    handleSubmit={handleSubmit}
-                    createNewChatBlob={createNewChatBlob}
-                    setUserSessionAttr={setUserSessionAttr}
-                    setCurrentFlow={setCurrentFlow}
-                    userSessionAttr={userSession}
-                />
-            )}
-            {userFlow.caseStudyCompScoring && (
-                <CaseStudyCompScoring
-                    register={register}
-                    setValue={setValue}
-                    handleSubmit={handleSubmit}
-                    createNewChatBlob={createNewChatBlob}
-                    setUserSessionAttr={setUserSessionAttr}
-                    setCurrentFlow={setCurrentFlow}
-                    userSessionAttr={userSession}
-                />
-            )}
-            {userFlow.feedback && (
-                <Feedback
-                    register={register}
-                    setValue={setValue}
-                    handleSubmit={handleSubmit}
-                    createNewChatBlob={createNewChatBlob}
-                    setUserSessionAttr={setUserSessionAttr}
-                    setCurrentFlow={setCurrentFlow}
-                    userSessionAttr={userSession}
-                />
+            {isLoading ? (
+                <div
+                    className="flex items-center"
+                    style={{ height: 96, padding: "0px 24px 0px 24px" }}
+                >
+                    <Text size="3" color="gray">
+                        Retrieving Chat...
+                    </Text>
+                </div>
+            ) : (
+                chatInputMessage
             )}
         </div>
     );

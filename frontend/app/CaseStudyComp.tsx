@@ -5,7 +5,7 @@ import { ChatInitiator } from "./component/ChatInitiator";
 import { UserAnswer } from "./component/UserAnswer";
 import { UserFlow } from "./component/UserFlow";
 import { Button } from "@radix-ui/themes";
-
+import { ChatFetcher, ChatAPIList } from "./component/ChatFetch";
 const CaseStudyComp: React.FC<ChatInitiator> = ({
     register,
     handleSubmit,
@@ -13,6 +13,7 @@ const CaseStudyComp: React.FC<ChatInitiator> = ({
     setUserSessionAttr,
     setCurrentFlow,
     userSessionAttr,
+    loadingHandle,
 }) => {
     const template = (data: any) => {
         return (
@@ -23,30 +24,20 @@ const CaseStudyComp: React.FC<ChatInitiator> = ({
         );
     };
     const chatResponse = async (data: UserAnswer) => {
-        const question = await fetch(
-            "http://127.0.0.1:8000/chat-api/casestudy-company",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            }
+        const questionData: ChatAPIResponse = await ChatFetcher(
+            ChatAPIList.caseStudyComp,
+            data,
+            loadingHandle
         );
-        const questionData: ChatAPIResponse = await question.json();
-        const rubric = await fetch(
-            "http://127.0.0.1:8000/chat-api/rubric-company",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    context: questionData.data.data.content,
-                }),
-            }
+        const questionAnswer = {
+            message: "",
+            context: questionData.data.data.content,
+        };
+        const rubricData: ChatAPIResponse = await ChatFetcher(
+            ChatAPIList.rubricComp,
+            questionAnswer,
+            loadingHandle
         );
-        const rubricData: ChatAPIResponse = await rubric.json();
         setUserSessionAttr(questionData.data.data.content, "questionComp");
         setUserSessionAttr(rubricData.data.data.content, "rubricComp");
         createNewChatBlob(ChatBlobAI(template(questionData.data.data.content)));
