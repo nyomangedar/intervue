@@ -17,4 +17,5 @@ func ChatGPTRoutes(app *fiber.App) {
 	app.Post(BaseRoot+"/rubric-company", controller.RubricCompanyRelatedCase)
 	app.Post(BaseRoot+"/scoring-company", controller.CaseScoringCompanyRelated)
 	app.Post(BaseRoot+"/feedback", controller.Feedback)
+	app.Post(BaseRoot+"/question", controller.QuestionPrompt)
 }

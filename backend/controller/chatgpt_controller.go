@@ -21,7 +21,7 @@ type ChatRequestBody struct {
 }
 
 func SendChat(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Second)
 
 	var req ChatRequestBody
 	defer cancel()
@@ -33,7 +33,7 @@ func SendChat(c *fiber.Ctx) error {
 
 	messages := []azopenai.ChatMessage{
 		// You set the tone and rules of the conversation with a prompt as the system role.
-		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for tech jobs (please answer this with proper html format without doctype, )")},
+		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for Product Manager candidate (answer this with html format to put into a div component)")},
 		// The user send answer
 		{Role: to.Ptr(azopenai.ChatRoleUser), Content: to.Ptr(req.Message)},
 	}
@@ -60,7 +60,7 @@ func SendChat(c *fiber.Ctx) error {
 }
 
 func AnalyzeJobPosting(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Second)
 	var req ChatRequestBody
 	defer cancel()
 
@@ -77,7 +77,7 @@ func AnalyzeJobPosting(c *fiber.Ctx) error {
 
 	messages := []azopenai.ChatMessage{
 		// You set the tone and rules of the conversation with a prompt as the system role.
-		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for tech jobs")},
+		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for Product Manager candidate (answer this with html format to put into a div component)")},
 		// Assistant responsibility
 		{Role: to.Ptr(azopenai.ChatRoleAssistant), Content: to.Ptr("I want you to analyze job posting, I want to know the seniority level (could also be in time range), industry type, key skills required, potential projects and day to day activities")},
 		// User input
@@ -101,7 +101,7 @@ func AnalyzeJobPosting(c *fiber.Ctx) error {
 }
 
 func CaseStudyEstimation(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Second)
 	var req ChatRequestBody
 	defer cancel()
 
@@ -112,9 +112,9 @@ func CaseStudyEstimation(c *fiber.Ctx) error {
 
 	messages := []azopenai.ChatMessage{
 		// You set the tone and rules of the conversation with a prompt as the system role.
-		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for Product Manager candidate")},
+		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for Product Manager candidate (answer this with html format to put into a div component)")},
 
-		{Role: to.Ptr(azopenai.ChatRoleAssistant), Content: to.Ptr("Give the user only 1 question without additional information in 1 sentence for estimation case study interview related to product manager based on this rubric " + rubric.PMRubric)},
+		{Role: to.Ptr(azopenai.ChatRoleAssistant), Content: to.Ptr("Give the user 1 estimation study case question, only the question without giving any advice")},
 	}
 
 	resp, err := ChatGPTClient.GetChatCompletions(ctx, azopenai.ChatCompletionsOptions{
@@ -133,7 +133,7 @@ func CaseStudyEstimation(c *fiber.Ctx) error {
 }
 
 func CaseScoringEstimation(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Second)
 	var req ChatRequestBody
 	defer cancel()
 
@@ -144,11 +144,11 @@ func CaseScoringEstimation(c *fiber.Ctx) error {
 
 	messages := []azopenai.ChatMessage{
 		// You set the tone and rules of the conversation with a prompt as the system role.
-		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for jobs")},
+		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for Product Manager candidate (answer this with html format to put into a div component)")},
 
-		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("Here is the context of the previous chat, you asked a question and the you have a scoring rubric" + req.Context + "and here is the rubric:" + rubric.PMRubric)},
+		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr( "Here is the context of the previous chat, you have a discussion about a study case and the you have a scoring rubric" + req.Context + "and here is the rubric:" + rubric.PMRubric )},
 
-		{Role: to.Ptr(azopenai.ChatRoleUser), Content: to.Ptr("Give score for each rubrics and give overal score for answer below with the range of score 1-5:" + req.Message)},
+		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("Give score for each rubrics and give overal score for answer below with the range of score 1-5:" + req.Message)},
 	}
 
 	resp, err := ChatGPTClient.GetChatCompletions(ctx, azopenai.ChatCompletionsOptions{
@@ -167,7 +167,7 @@ func CaseScoringEstimation(c *fiber.Ctx) error {
 }
 
 func CaseStudyCompanyRelated(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Second)
 	var req ChatRequestBody
 	defer cancel()
 
@@ -178,7 +178,7 @@ func CaseStudyCompanyRelated(c *fiber.Ctx) error {
 
 	messages := []azopenai.ChatMessage{
 		// You set the tone and rules of the conversation with a prompt as the system role.
-		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for jobs")},
+		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for Product Manager candidate (answer this with html format to put into a div component)")},
 
 		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr(req.Context)},
 
@@ -200,7 +200,7 @@ func CaseStudyCompanyRelated(c *fiber.Ctx) error {
 }
 
 func CaseScoringCompanyRelated(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Second)
 	var req ChatRequestBody
 	defer cancel()
 
@@ -211,9 +211,9 @@ func CaseScoringCompanyRelated(c *fiber.Ctx) error {
 
 	messages := []azopenai.ChatMessage{
 		// You set the tone and rules of the conversation with a prompt as the system role.
-		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for tech jobs")},
+		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for Product Manager candidate (answer this with html format to put into a div component)")},
 
-		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("Previous rubrics and case study" + req.Context)},
+		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr( "Here is the context of the previous chat, you have a discussion about a study case and the you have a scoring rubric" + req.Context)},
 
 		{Role: to.Ptr(azopenai.ChatRoleAssistant), Content: to.Ptr("Give score for each rubrics and give overal score for answer below with the range of score 1-5:" + req.Message)},
 	}
@@ -234,7 +234,7 @@ func CaseScoringCompanyRelated(c *fiber.Ctx) error {
 }
 
 func RubricCompanyRelatedCase(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Second)
 	var req ChatRequestBody
 	defer cancel()
 
@@ -245,7 +245,7 @@ func RubricCompanyRelatedCase(c *fiber.Ctx) error {
 
 	messages := []azopenai.ChatMessage{
 		// You set the tone and rules of the conversation with a prompt as the system role.
-		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for tech jobs")},
+		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for Product Manager candidate (answer this with html format to put into a div component)")},
 
 		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("Here is a case study" + req.Context)},
 
@@ -268,7 +268,7 @@ func RubricCompanyRelatedCase(c *fiber.Ctx) error {
 }
 
 func Feedback(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Second)
 	var req ChatRequestBody
 	defer cancel()
 
@@ -279,11 +279,49 @@ func Feedback(c *fiber.Ctx) error {
 
 	messages := []azopenai.ChatMessage{
 		// You set the tone and rules of the conversation with a prompt as the system role.
-		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for tech jobs")},
+		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for Product Manager candidate (answer this with html format to put into a div component)")},
 
 		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("Here is feedback for estimation and company related case study" + req.Context)},
 
 		{Role: to.Ptr(azopenai.ChatRoleAssistant), Content: to.Ptr("based on feedback above, write summary, actionable advice and resources for candidate to prepare (imagine you are talking directly to the candidate)")},
+	}
+	maxTokens := int32(2000)
+	temperature := float32(0.7)
+	resp, err := ChatGPTClient.GetChatCompletions(ctx, azopenai.ChatCompletionsOptions{
+		// This is a conversation in progress.
+		// NOTE: all messages count against token usage for this API.
+		Messages:     messages,
+		DeploymentID: configs.DEPLOYMENT_ID,
+		MaxTokens: &maxTokens,
+		Temperature: &temperature,
+	}, nil)
+
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(responses.ChatGPTResponse{Status: http.StatusInternalServerError, Message: "Error sending request to OpenaAI API", Data: &fiber.Map{"data": err}})
+	}
+	choices := resp.Choices[0].Message
+	return c.Status(http.StatusOK).JSON(responses.ChatGPTResponse{Status: http.StatusOK, Message: "Chat Successful", Data: &fiber.Map{"data": choices}})
+}
+
+func QuestionPrompt(c *fiber.Ctx) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Second)
+	var req ChatRequestBody
+	defer cancel()
+
+	err := c.BodyParser(&req)
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(responses.ChatGPTResponse{Status: http.StatusBadRequest, Message: "Error input request", Data: &fiber.Map{"data": err}})
+	}
+
+	messages := []azopenai.ChatMessage{
+		// You set the tone and rules of the conversation with a prompt as the system role.
+		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You are an AI that has a role as HR that interviews people for Product Manager candidate (answer this with html format to put into a div component)")},
+
+		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("You're having a discussion with your candidate about a case study, here is the discussion: " + req.Context)},
+
+		{Role: to.Ptr(azopenai.ChatRoleSystem), Content: to.Ptr("Answer candidate question, you can make an assumption for the answer")},
+
+		{Role: to.Ptr(azopenai.ChatRoleUser), Content: to.Ptr(req.Message)},
 	}
 	maxTokens := int32(2000)
 	temperature := float32(0.7)
