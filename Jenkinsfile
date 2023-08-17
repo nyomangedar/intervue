@@ -11,6 +11,17 @@ pipeline {
                 """
             }
         }
+        stage('Clean up before starting new one') {
+            steps {
+                script {
+                    echo 'stop all containers'
+                    sh 'sudo docker stop $(sudo docker ps -a -q)'
+                    echo 'delete old containers and images'
+                    sh 'sudo docker system prune -af'
+                }
+            }
+        }
+
         stage('Building Images') {
             steps {
                 dir('backend') {
@@ -24,19 +35,8 @@ pipeline {
                     }
                 }
             }
-
-                
         }
-        stage('Clean up before starting new one') {
-            steps {
-                script {
-                    echo 'stop all containers'
-                    sh 'sudo docker stop $(sudo docker ps -a -q)'
-                    echo 'delete old containers and images'
-                    sh 'sudo docker system prune -af'
-                }
-            }
-        }
+        
 
         stage('Start docker containers') {
             steps {
