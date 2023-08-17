@@ -16,7 +16,7 @@ pipeline {
                 script {
                     echo 'check old running containers, and images'
                     def containers = sh(
-                        script: "sudo docker ps -a -q",
+                        script: "sudo docker ps -a -q || true",
                         returnStatus: true,
                         returnStdout: true
                     ).trim()
