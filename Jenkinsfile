@@ -15,12 +15,12 @@ pipeline {
             steps {
                 dir('backend') {
                     script {
-                        sh 'docker build -t intervue-backend .'
+                        sh 'sudo docker build -t intervue-backend .'
                     }
                 }
                 dir('frontend') {
                     script {
-                        sh 'docker build -t intervue-frontend .'
+                        sh 'sudo docker build -t intervue-frontend .'
                     }
                 }
             }
@@ -31,9 +31,9 @@ pipeline {
             steps {
                 script {
                     echo 'stop all containers'
-                    sh 'docker stop $(docker ps -a -q)'
+                    sh 'sudo docker stop $(sudo docker ps -a -q)'
                     echo 'delete old containers and images'
-                    sh 'docker system prune -af'
+                    sh 'sudo docker system prune -af'
                 }
             }
         }
@@ -42,9 +42,9 @@ pipeline {
             steps {
                 script {
                     echo 'Run frontend container'
-                    sh 'docker run --name intervue-frontend -p 3000:3000 -d intervue-frontend'
+                    sh 'sudo docker run --name intervue-frontend -p 3000:3000 -d intervue-frontend'
                     echo 'Run backend container'
-                    sh 'docker run --name intervue-backend -p 8000:8000 -d intervue-backend'
+                    sh 'sudo docker run --name intervue-backend -p 8000:8000 -d intervue-backend'
                 }
             }
         }
