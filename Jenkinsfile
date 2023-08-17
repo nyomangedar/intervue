@@ -15,21 +15,8 @@ pipeline {
             steps {
                 script {
                     echo 'check old running containers, and images'
-                    def containers = sh(
-                        script: "sudo docker ps -a -q || true",
-                        returnStatus: true,
-                        returnStdout: true
-                    ).trim()
-
-                    echo 'stopping containers'
-                    if (containers){
-                        echo 'stop all containers'
-                        sh 'sudo docker stop $(sudo docker ps -a -q)'
-                        
-                    } else {
-                        echo 'no containers to stop'
-                    }
-
+                    echo 'stop all containers'
+                    sh 'sudo docker stop $(sudo docker ps -a -q)'
                     echo 'delete old containers and images'
                     sh 'sudo docker system prune -af'
                 }
