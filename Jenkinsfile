@@ -14,8 +14,21 @@ pipeline {
         stage('Clean up before starting new one') {
             steps {
                 script {
-                    echo 'stop all containers'
-                    sh 'sudo docker stop $(sudo docker ps -a -q)'
+                    echo 'check old running containers, and images'
+                    def containers = sh(
+                        script: "sudo docker ps -a -q",
+                        returnStatus: true,
+                        returnStdout: true
+                    ).trim()
+
+                    if (containers){
+                        echo 'stop all containers'
+                        sh 'sudo docker stop $(sudo docker ps -a -q)'
+                        
+                    } else {
+                        echo 'no containers to stop'
+                    }
+
                     echo 'delete old containers and images'
                     sh 'sudo docker system prune -af'
                 }
