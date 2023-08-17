@@ -17,12 +17,7 @@ const CaseStudyEst: React.FC<ChatInitiator> = ({
     loadingHandle,
 }) => {
     const template = (data: any) => {
-        return (
-            <>
-                <p>Great! Here is an estimation case study: </p>
-                {data}
-            </>
-        );
+        return "<p>Great! Here is an estimation case study: </p>" + data;
     };
     const chatResponse = async (data: UserAnswer) => {
         const resData: ChatAPIResponse = await ChatFetcher(
@@ -31,8 +26,8 @@ const CaseStudyEst: React.FC<ChatInitiator> = ({
             loadingHandle
         );
         createNewChatBlob(ChatBlobAI(template(resData.data.data.content)));
-        setUserSessionAttr("questionEst", resData.data.data.content);
-        setCurrentFlow(UserFlow.caseStudyEst, UserFlow.caseStudyEstScoring);
+        setUserSessionAttr(resData.data.data.content, "questionEst");
+        setCurrentFlow(UserFlow.caseStudyEst, UserFlow.userDiscussionEst);
     };
     return (
         <div style={{ padding: "8px 8px 8px 8px" }}>

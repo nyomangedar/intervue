@@ -34,4 +34,18 @@ export const ChatAPIList = {
     rubricComp: "/rubric-company",
     scoringComp: "/scoring-company",
     feedback: "/feedback",
+    question: "/question",
+};
+
+export const ChatSessionList = {
+    jobPosting: "jobPosting",
+    userAnswerEstimation: "userAnswerEstimation",
+    userEstScore: "userEstScore",
+    userAnswerCompany: "userAnswerCompany",
+    userCompScore: "userCompScore",
+    questionEst: "questionEst",
+    questionComp: "questionComp",
+    companyRubric: "companyRubric",
+    userDiscussionEst: "userDiscussionEst",
+    userDiscussionComp: "userDiscussionComp",
 };

@@ -5,4 +5,6 @@ export const UserFlow = {
     caseStudyComp: "caseStudyComp",
     caseStudyCompScoring: "caseStudyCompScoring",
     feedback: "feedback",
+    userDiscussionEst: "userDiscussionEst",
+    userDiscussionComp: "userDiscussionComp",
 };

@@ -15,7 +15,7 @@ const Feedback: React.FC<ChatInitiator> = ({
 }) => {
     const chatResponse = async (data: UserAnswer) => {
         const resData: ChatAPIResponse = await ChatFetcher(
-            ChatAPIList.caseStudyEst,
+            ChatAPIList.feedback,
             data,
             loadingHandle
         );
@@ -23,7 +23,7 @@ const Feedback: React.FC<ChatInitiator> = ({
         createNewChatBlob(ChatBlobAI(userSessionAttr.userEstScore));
         createNewChatBlob(ChatBlobAI(userSessionAttr.userCompScore));
         createNewChatBlob(ChatBlobAI(resData.data.data.content));
-        setCurrentFlow(UserFlow.feedback, UserFlow.analyseJobPosting);
+        setCurrentFlow(UserFlow.feedback, null);
     };
     return (
         <>

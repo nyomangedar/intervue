@@ -11,6 +11,8 @@ import CaseStudyEstScoring from "./CaseStudyEstScoring";
 import CaseStudyComp from "./CaseStudyComp";
 import CaseStudyCompScoring from "./CaseStudyCompScoring";
 import Feedback from "./Feedback";
+import QuestionPromptEst from "./QuestionPromptEst";
+import QuestionPromptComp from "./QuestionPromptComp";
 
 export default function ChatPanel() {
     const [chatBlobs, setChatBlobs] = useState<JSX.Element[]>([]);
@@ -24,6 +26,8 @@ export default function ChatPanel() {
         questionEst: "",
         questionComp: "",
         companyRubric: "",
+        userDiscussionEst: "",
+        userDiscussionComp: "",
     });
     const [userFlow, setUserFlow] = useState({
         analyseJobPosting: true,
@@ -32,6 +36,9 @@ export default function ChatPanel() {
         caseStudyComp: false,
         caseStudyCompScoring: false,
         feedback: false,
+        discussion: false,
+        userDiscussionEst: false,
+        userDiscussionComp: false,
     });
 
     const setCurrentFlow = (
@@ -59,10 +66,15 @@ export default function ChatPanel() {
         formState: { errors },
     } = useForm<UserAnswer>();
 
-    const setUserSessionAttr = (data: string, usecase: string) => {
+    const setUserSessionAttr = (
+        data: string,
+        usecase: keyof typeof userSession
+    ) => {
+        const updatedState = { ...userSession };
+        const newdata = updatedState[usecase] + data;
         setUserSession((prevState) => ({
             ...prevState,
-            [usecase]: data,
+            [usecase]: newdata,
         }));
     };
 
@@ -139,6 +151,30 @@ export default function ChatPanel() {
             )}
             {userFlow.feedback && (
                 <Feedback
+                    register={register}
+                    setValue={setValue}
+                    handleSubmit={handleSubmit}
+                    createNewChatBlob={createNewChatBlob}
+                    setUserSessionAttr={setUserSessionAttr}
+                    setCurrentFlow={setCurrentFlow}
+                    userSessionAttr={userSession}
+                    loadingHandle={setLoading}
+                />
+            )}
+            {userFlow.userDiscussionEst && (
+                <QuestionPromptEst
+                    register={register}
+                    setValue={setValue}
+                    handleSubmit={handleSubmit}
+                    createNewChatBlob={createNewChatBlob}
+                    setUserSessionAttr={setUserSessionAttr}
+                    setCurrentFlow={setCurrentFlow}
+                    userSessionAttr={userSession}
+                    loadingHandle={setLoading}
+                />
+            )}
+            {userFlow.userDiscussionComp && (
+                <QuestionPromptComp
                     register={register}
                     setValue={setValue}
                     handleSubmit={handleSubmit}

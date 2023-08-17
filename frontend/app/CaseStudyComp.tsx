@@ -5,7 +5,11 @@ import { ChatInitiator } from "./component/ChatInitiator";
 import { UserAnswer } from "./component/UserAnswer";
 import { UserFlow } from "./component/UserFlow";
 import { Button } from "@radix-ui/themes";
-import { ChatFetcher, ChatAPIList } from "./component/ChatFetch";
+import {
+    ChatFetcher,
+    ChatAPIList,
+    ChatSessionList,
+} from "./component/ChatFetch";
 const CaseStudyComp: React.FC<ChatInitiator> = ({
     register,
     handleSubmit,
@@ -16,12 +20,7 @@ const CaseStudyComp: React.FC<ChatInitiator> = ({
     loadingHandle,
 }) => {
     const template = (data: any) => {
-        return (
-            <>
-                <p>Great!, Here is a company based case study: </p>
-                {data}
-            </>
-        );
+        return "<p>Great!, Here is a company based case study:\n</p>" + data;
     };
     const chatResponse = async (data: UserAnswer) => {
         const questionData: ChatAPIResponse = await ChatFetcher(
@@ -39,9 +38,9 @@ const CaseStudyComp: React.FC<ChatInitiator> = ({
             loadingHandle
         );
         setUserSessionAttr(questionData.data.data.content, "questionComp");
-        setUserSessionAttr(rubricData.data.data.content, "rubricComp");
+        setUserSessionAttr(rubricData.data.data.content, "companyRubric");
         createNewChatBlob(ChatBlobAI(template(questionData.data.data.content)));
-        setCurrentFlow(UserFlow.caseStudyComp, UserFlow.caseStudyCompScoring);
+        setCurrentFlow(UserFlow.caseStudyComp, UserFlow.userDiscussionComp);
     };
     return (
         <>

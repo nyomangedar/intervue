@@ -2,7 +2,7 @@ import { Avatar } from "@radix-ui/themes";
 
 const ChatBlobUser = (data: any) => {
     return (
-        <div className="flex gap-2">
+        <div className="flex gap-2 justify-end">
             <div
                 className="flex flex-col items-center"
                 style={{

@@ -26,9 +26,12 @@ const ChatBlob: React.FC<ChatBlobAttr> = ({
         <form
             className="flex gap-2"
             onSubmit={handleSubmit(async (data: UserAnswer) => {
-                console.log(data);
                 createNewChatBlob(ChatBlobUser(data.message));
-                apiPost(data);
+                const reqBody = {
+                    message: data.message,
+                    context: prevContext,
+                };
+                await apiPost(reqBody);
             })}
             style={{ padding: "24px 8px 24px 8px" }}
         >

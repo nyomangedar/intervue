@@ -19,7 +19,7 @@ const CaseStudyEstScoring: React.FC<ChatInitiator> = ({
 }) => {
     useEffect(() => {
         createNewChatBlob(
-            ChatBlobAI(<p>Please provide answer for the question above</p>)
+            ChatBlobAI("<p>Please provide answer for the question above</p>")
         );
     }, []);
     const chatResponse = async (data: UserAnswer) => {
@@ -44,7 +44,10 @@ const CaseStudyEstScoring: React.FC<ChatInitiator> = ({
                 register={register}
                 handleSubmit={handleSubmit}
                 createNewChatBlob={createNewChatBlob}
-                prevContext={userSessionAttr.questionEst}
+                prevContext={
+                    userSessionAttr.questionEst +
+                    userSessionAttr.userDiscussionEst
+                }
             />
         </>
     );

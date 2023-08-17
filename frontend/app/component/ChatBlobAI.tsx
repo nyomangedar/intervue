@@ -11,9 +11,8 @@ const ChatBlobAI = (data: any) => {
                     padding: "10px 16px 10px 16px",
                 }}
                 className="flex flex-col justify-center"
-            >
-                {data}
-            </div>
+                dangerouslySetInnerHTML={{ __html: data }}
+            />
         </div>
     );
 };
