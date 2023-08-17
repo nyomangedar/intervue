@@ -21,6 +21,7 @@ pipeline {
                         returnStdout: true
                     ).trim()
 
+                    echo 'stopping containers'
                     if (containers){
                         echo 'stop all containers'
                         sh 'sudo docker stop $(sudo docker ps -a -q)'
