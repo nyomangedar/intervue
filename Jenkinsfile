@@ -18,14 +18,14 @@ pipeline {
                         sh 'docker build -t intervue-backend .'
                     }
                 }
-            }
-            steps {
                 dir('frontend') {
                     script {
                         sh 'docker build -t intervue-frontend .'
                     }
                 }
             }
+
+                
         }
         stage('Clean up before starting new one') {
             steps {
