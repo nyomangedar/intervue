@@ -25,7 +25,7 @@ const CaseStudyEstScoring: React.FC<ChatInitiator> = ({
     const chatResponse = async (data: UserAnswer) => {
         setUserSessionAttr(data.message, "userAnswerEstimation");
         const resData: ChatAPIResponse = await ChatFetcher(
-            ChatAPIList.analyseJob,
+            ChatAPIList.scoringEst,
             data,
             loadingHandle
         );
