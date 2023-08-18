@@ -7,4 +7,5 @@ export const UserFlow = {
     feedback: "feedback",
     userDiscussionEst: "userDiscussionEst",
     userDiscussionComp: "userDiscussionComp",
+    endConversation: "endConversation",
 };

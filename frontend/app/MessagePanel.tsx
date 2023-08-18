@@ -52,34 +52,7 @@ const MessagePanel: React.FC = () => {
             >
                 <Card className="cursor-pointer">
                     <div className="flex gap-2">
-                        <Avatar src="" size="3" fallback="I" />
-                        <div className="flex">
-                            <div style={{ width: 186 }}>
-                                <div className="flex flex-col mb-2">
-                                    <Text size="3">Zoey</Text>
-                                    <Text
-                                        size="1"
-                                        color="gray"
-                                        className="truncate"
-                                    >
-                                        PM interview for healthcare company
-                                    </Text>
-                                </div>
-                                <div className="flex gap-1">
-                                    <Badge radius="full">B2B</Badge>
-                                    <Badge radius="full">PM</Badge>
-                                    <Badge radius="full">Healthcare</Badge>
-                                </div>
-                            </div>
-                            <Text size="1" color="gray">
-                                24m
-                            </Text>
-                        </div>
-                    </div>
-                </Card>
-                <Card className="cursor-pointer">
-                    <div className="flex gap-2">
-                        <Avatar src="" size="3" fallback="I" />
+                        <Avatar src="" size="3" fallback="Z" />
                         <div className="flex">
                             <div style={{ width: 186 }}>
                                 <div className="flex flex-col mb-2">

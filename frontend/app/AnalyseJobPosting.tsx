@@ -17,7 +17,7 @@ const AnalyseJobPosting: React.FC<ChatInitiator> = ({
     loadingHandle,
 }) => {
     const newChat =
-        "<p>Hi! Please proviede the description of the job you want to apply to";
+        "<p>Hi! Please provide the description of the job you want to apply to";
     const resChat = "<p>Here is the summary of your job description!</p>";
     useEffect(() => {
         createNewChatBlob(ChatBlobAI(newChat));

@@ -30,6 +30,7 @@ const QuestionPromptComp: React.FC<ChatInitiator> = ({
     }, []);
     const enableQuestion = () => {
         setQuestionState(!questionState);
+        createNewChatBlob("Please ask me any question");
     };
     const continueFlow = () => {
         setCurrentFlow(
@@ -73,7 +74,7 @@ const QuestionPromptComp: React.FC<ChatInitiator> = ({
                     />
                 </>
             ) : (
-                <>
+                <div style={{ padding: "8px 8px 8px 8px" }}>
                     <p>Do you have any question related to the study case?</p>
                     <div>
                         <Button
@@ -87,7 +88,7 @@ const QuestionPromptComp: React.FC<ChatInitiator> = ({
                             <h2>No</h2>
                         </Button>
                     </div>
-                </>
+                </div>
             )}
         </>
     );

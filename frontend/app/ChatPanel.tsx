@@ -13,6 +13,7 @@ import CaseStudyCompScoring from "./CaseStudyCompScoring";
 import Feedback from "./Feedback";
 import QuestionPromptEst from "./QuestionPromptEst";
 import QuestionPromptComp from "./QuestionPromptComp";
+import EndConversation from "./EndConversation";
 
 export default function ChatPanel() {
     const [chatBlobs, setChatBlobs] = useState<JSX.Element[]>([]);
@@ -39,6 +40,7 @@ export default function ChatPanel() {
         discussion: false,
         userDiscussionEst: false,
         userDiscussionComp: false,
+        endConversation: false,
     });
 
     const setCurrentFlow = (
@@ -70,12 +72,11 @@ export default function ChatPanel() {
         data: string,
         usecase: keyof typeof userSession
     ) => {
-        const updatedState = { ...userSession };
-        const newdata = updatedState[usecase] + data;
         setUserSession((prevState) => ({
             ...prevState,
-            [usecase]: newdata,
+            [usecase]: data,
         }));
+        // console.log(userSession);
     };
 
     const createNewChatBlob = (data: any) => {
@@ -175,6 +176,18 @@ export default function ChatPanel() {
             )}
             {userFlow.userDiscussionComp && (
                 <QuestionPromptComp
+                    register={register}
+                    setValue={setValue}
+                    handleSubmit={handleSubmit}
+                    createNewChatBlob={createNewChatBlob}
+                    setUserSessionAttr={setUserSessionAttr}
+                    setCurrentFlow={setCurrentFlow}
+                    userSessionAttr={userSession}
+                    loadingHandle={setLoading}
+                />
+            )}
+            {userFlow.endConversation && (
+                <EndConversation
                     register={register}
                     setValue={setValue}
                     handleSubmit={handleSubmit}

@@ -19,6 +19,9 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
+            <head>
+                <title>Intervue</title>
+            </head>
             <body className={inter.className}>
                 <Theme appearance="light" accentColor="gray" grayColor="olive">
                     <div className="flex">

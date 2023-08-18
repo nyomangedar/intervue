@@ -20,15 +20,15 @@ const Feedback: React.FC<ChatInitiator> = ({
             loadingHandle
         );
 
+        createNewChatBlob(ChatBlobAI(resData.data.data.content));
         createNewChatBlob(ChatBlobAI(userSessionAttr.userEstScore));
         createNewChatBlob(ChatBlobAI(userSessionAttr.userCompScore));
-        createNewChatBlob(ChatBlobAI(resData.data.data.content));
-        setCurrentFlow(UserFlow.feedback, null);
+        setCurrentFlow(UserFlow.feedback, UserFlow.endConversation);
     };
     return (
         <>
             <h4>Do you want to see the final result of your answer?</h4>
-            <div className="flex content-around">
+            <div style={{ padding: "8px 8px 8px 8px" }}>
                 <Button
                     onClick={() => {
                         chatResponse({

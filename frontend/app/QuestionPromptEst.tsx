@@ -24,6 +24,7 @@ const QuestionPromptEst: React.FC<ChatInitiator> = ({
     const [questionState, setQuestionState] = useState(false);
     const enableQuestion = () => {
         setQuestionState(!questionState);
+        createNewChatBlob(ChatBlobAI("Please ask me any question"));
     };
     const continueFlow = () => {
         setCurrentFlow(
@@ -45,10 +46,10 @@ const QuestionPromptEst: React.FC<ChatInitiator> = ({
                 questionAnswerData.data.data.content,
             "userDiscussionEst"
         );
+        setValue("message", "");
         console.log(userSessionAttr.userDiscussionEst);
         createNewChatBlob(ChatBlobAI(questionAnswerData.data.data.content));
-
-        enableQuestion();
+        setQuestionState(!questionState);
     };
     return (
         <>
@@ -68,7 +69,7 @@ const QuestionPromptEst: React.FC<ChatInitiator> = ({
                     />
                 </>
             ) : (
-                <>
+                <div style={{ padding: "8px 8px 8px 8px" }}>
                     <p>Do you have any question related to the study case?</p>
                     <div>
                         <Button
@@ -82,7 +83,7 @@ const QuestionPromptEst: React.FC<ChatInitiator> = ({
                             <h2>No</h2>
                         </Button>
                     </div>
-                </>
+                </div>
             )}
         </>
     );

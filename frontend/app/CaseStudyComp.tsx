@@ -19,9 +19,6 @@ const CaseStudyComp: React.FC<ChatInitiator> = ({
     userSessionAttr,
     loadingHandle,
 }) => {
-    const template = (data: any) => {
-        return "<p>Great!, Here is a company based case study:\n</p>" + data;
-    };
     const chatResponse = async (data: UserAnswer) => {
         const questionData: ChatAPIResponse = await ChatFetcher(
             ChatAPIList.caseStudyComp,
@@ -39,11 +36,14 @@ const CaseStudyComp: React.FC<ChatInitiator> = ({
         );
         setUserSessionAttr(questionData.data.data.content, "questionComp");
         setUserSessionAttr(rubricData.data.data.content, "companyRubric");
-        createNewChatBlob(ChatBlobAI(template(questionData.data.data.content)));
+        createNewChatBlob(
+            ChatBlobAI("<p>Great! Here is a company based case study:\n</p>")
+        );
+        createNewChatBlob(ChatBlobAI(questionData.data.data.content));
         setCurrentFlow(UserFlow.caseStudyComp, UserFlow.userDiscussionComp);
     };
     return (
-        <>
+        <div style={{ padding: "8px 8px 8px 8px" }}>
             <p>
                 We have another question for company related use case study! Do
                 you wish to continue?
@@ -63,7 +63,7 @@ const CaseStudyComp: React.FC<ChatInitiator> = ({
                     <h2>No</h2>
                 </Button>
             </div>
-        </>
+        </div>
     );
 };
 

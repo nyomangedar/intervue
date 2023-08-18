@@ -16,16 +16,16 @@ const CaseStudyEst: React.FC<ChatInitiator> = ({
     userSessionAttr,
     loadingHandle,
 }) => {
-    const template = (data: any) => {
-        return "<p>Great! Here is an estimation case study: </p>" + data;
-    };
     const chatResponse = async (data: UserAnswer) => {
         const resData: ChatAPIResponse = await ChatFetcher(
             ChatAPIList.caseStudyEst,
             data,
             loadingHandle
         );
-        createNewChatBlob(ChatBlobAI(template(resData.data.data.content)));
+        createNewChatBlob(
+            ChatBlobAI("Great! Here is an estimation case study")
+        );
+        createNewChatBlob(ChatBlobAI(resData.data.data.content));
         setUserSessionAttr(resData.data.data.content, "questionEst");
         setCurrentFlow(UserFlow.caseStudyEst, UserFlow.userDiscussionEst);
     };

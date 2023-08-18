@@ -14,7 +14,7 @@ const ChatBlobUser = (data: any) => {
             >
                 {data}
             </div>
-            <Avatar fallback="Z" />
+            <Avatar fallback="I" />
         </div>
     );
 };
